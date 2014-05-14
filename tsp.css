@@ -1,0 +1,9 @@
+body,h1,h2,h3,h4,h5,h6,ul,dl,ol,fieldset,img{padding: 0; margin: 0; font-weight: normal;}
+
+.container{
+	width: 600px;
+	height: 600px;
+	margin: 40px auto;
+	border: 1px solid #666;
+}
+
