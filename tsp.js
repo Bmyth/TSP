@@ -2,7 +2,7 @@ $(function(){
 	var svg = d3.select('.container').append('svg'); 
 
     var points = [];
-    var pointsNumber = 48;
+    var pointsNumber = 4;
     var rangeLength = 600;
 
     function point(x, y, idx){
@@ -36,7 +36,7 @@ $(function(){
 
     		flag = farEnough;
     	}
-    	return new point(x, y, idx);
+    	return point(x, y, idx);
     }
 
     function disance(x1, x2, y1, y2){
@@ -50,17 +50,9 @@ $(function(){
        .attr("cy", function(d) { return d.y; })
        .attr("r", 5);
 
-   	var ants=[];
-   	function ant(){
-   		var visitedCity=[];
-   		var tour=[];
-   		var tourLength;
-   		return{
-   			visitedCity : visitedCity,
-   			tour : tour,
-   			tourLength : tourLength
-   		}
-   	}
+    var aco = ACO(points);
 
-
+    while(aco.isOver){
+    	aco.go();
+    }
 })
