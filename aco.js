@@ -1,4 +1,4 @@
-   function ACO(TSP_points){
+function ACO(TSP_points){
    var points = TSP_points;
    var ants = [];
    var map;
@@ -114,17 +114,6 @@
 
       }
 
-      
-
-      function generateOrderedArray(l){
-         var a = [];
-         for(var i = 0; i<l; i++)
-            a.push(i)
-         return a;
-      }
-
-
-      //showMatrix(dist, ".debugInfo");
       //showMatrix(neighbours, ".debugInfo2");
 
       return{

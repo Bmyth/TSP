@@ -1,9 +1,17 @@
 body,h1,h2,h3,h4,h5,h6,ul,dl,ol,fieldset,img{padding: 0; margin: 0; font-weight: normal;}
 
-.container{
+.container, .info{
 	width: 600px;
 	height: 600px;
-	margin: 40px auto;
+	margin: 20px auto;
 	border: 1px solid #666;
 }
+
+div.bar {  
+    display: inline-block;  
+    width: 20px;  
+    height: 75px;   /* Gets overriden by D3-assigned height below */  
+    margin-right: 2px;  
+    background-color: teal;  
+}  
 

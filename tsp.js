@@ -1,8 +1,9 @@
 $(function(){
-	var svg = d3.select('.container').append('svg'); 
+	svg = d3.select('.container').append('svg');
+    svg2 = d3.select('.info').append('svg');  
 
     var points = [];
-    var pointsNumber = 48;
+    var pointsNumber = 24;
     var rangeLength = 600;
 
     function point(x, y, idx){
@@ -19,6 +20,9 @@ $(function(){
     for(var i = 0; i<pointsNumber; i++){
     	points.push(generateNewPoint(i));
     }
+
+    paintCircle(points);
+
     function generateNewPoint(idx){
     	var flag = false;
     	var x;
@@ -28,7 +32,7 @@ $(function(){
     		y = parseInt(rangeLength * Math.random());
     		var farEnough = true;
     		for (var i = 0; i < points.length; i++){
-    			if(disance(x, points[i].x, y, points[i].y) < 500){
+    			if(distance(x, points[i].x, y, points[i].y) < 500){
     				farEnough = false;
     			}	
     		}
@@ -38,32 +42,40 @@ $(function(){
     	return point(x, y, idx);
     }
 
-    svg.selectAll("circle")
-       .data(points)
-       .enter().append("circle")
-       .attr("cx", function(d) { return d.x; })
-       .attr("cy", function(d) { return d.y; })
-       .attr("r", 5);
+    GA(points);
+    // var aco = ACO(points);
 
-    var aco = ACO(points);
-
-    while(aco.isOver){
-    	aco.go();
-    }
-
-
+    // while(aco.isOver){
+    // 	aco.go();
+    // }
 })
 
+var svg, svg2;
 
-function disance(x1, x2, y1, y2){
+function distance(x1, x2, y1, y2){
     return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+}
+
+function generateOrderedArray(l){
+    var a = [];
+    for(var i = 0; i<l; i++)
+        a.push(i)
+    return a;
+}
+
+function copyArray(a){
+    var l = [];
+    for(var i=0; i<a.length; i++){
+        l.push(a[i]);
+    }
+    return l;
 }
 
 function showArray(a, where){
   var p = $(where);
   p.text("");
   for(var i = 0; i<a.length; i++){
-     $("<span></span>").text(a[i] + ",").appendTo(p);
+     $("<span></span>").text(parseInt(a[i]) + ",").appendTo(p);
   }
 }
 
@@ -78,4 +90,44 @@ function showMatrix(a, where){
      }
      $(ele).appendTo(p);
   }  
+}
+
+function paintCircle(points){
+    svg.selectAll("circle")
+       .data(points)
+       .enter().append("circle")
+       .attr("cx", function(d) { return d.x; })
+       .attr("cy", function(d) { return d.y; })
+       .attr("r", 5);
+}
+
+function paintPath(points, path){
+    var p = '';
+    for(var i =0; i<path.length; i++){
+        p += points[path[i]].x + ', ' + points[path[i]].y + ' ';
+    }
+    svg.select('polygon').remove();
+    svg.append('polygon').attr({
+        points: p
+    }).style({
+        fill: 'none',   
+        stroke: '#aaa',
+        opacity: 1,  
+        'stroke-width': 2
+    });   
+}
+
+function paintBestRecord(r){
+    var p = '';
+    for(var i =0; i<r.length; i++){
+        p += i * 20 + ', ' + r[i] * 10 + ' ';
+    }
+    svg2.append('polyline').attr({
+        points: p
+    }).style({
+        fill: 'none',   
+        stroke: 'blue',
+        opacity: 1,  
+        'stroke-width': 2
+    });   
 }
