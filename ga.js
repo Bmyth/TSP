@@ -5,14 +5,14 @@ function GA(TSP_points){
 	var populationK = [];
 	var points = TSP_points;
 	var pointsNumber = TSP_points.length;
-	var crossOverPossibility = 0.6;
+	var crossOverPossibility = 0.4;
 	var mutationPossibility = 0.1;
 	var crossOverPosition = parseInt(pointsNumber / 2);
 	var totalV;
 	var normalizeParameter = 500000 * pointsNumber;
 	var bestPathIdx;
 	var vRecord = [];
-	var runTimes = 8000;
+	var runTimes = 5000;
 
 	initialPopulation();
 
@@ -20,16 +20,17 @@ function GA(TSP_points){
 	while(stepNumber < runTimes){
 		step();
 		stepNumber ++;
-		if(stepNumber == runTimes){
-			// alert("run " + stepNumber + "times");
+		if(stepNumber % 800 == 0){
+			alert("run " + stepNumber + "times");
 			paintPath(points, population[bestPathIdx]);
 		}
 		if(stepNumber % 400 == 0){
 			vRecord.push(populationK[bestPathIdx]);
 		}	
 	}
-	// showArray(vRecord, ".debugInfo");
-	paintBestRecord(vRecord);
+	// step();
+	// showArray(populationV, ".debugInfo");
+	// paintBestRecord(vRecord);
 
 	function initialPopulation(){
 		for(var i=0; i<populationNumber; i++){
@@ -37,6 +38,16 @@ function GA(TSP_points){
 			for(var j=0; j<pointsNumber; j++){
 				p.push((j + i) % pointsNumber);
 			}
+
+			var p1 = parseInt(Math.random() * pointsNumber);
+			var p2 = parseInt(Math.random() * pointsNumber);	
+				while(p1 == p2){
+					p2 = parseInt(Math.random() * pointsNumber);	
+				}
+				p[p1] = population[i][p2];
+				p[p2] = population[i][p1];
+				population.push(p);
+
 			population.push(p);
 		}
 	}

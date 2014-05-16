@@ -3,7 +3,7 @@ $(function(){
     svg2 = d3.select('.info').append('svg');  
 
     var points = [];
-    var pointsNumber = 24;
+    var pointsNumber = 20;
     var rangeLength = 600;
 
     function point(x, y, idx){
