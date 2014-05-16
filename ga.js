@@ -41,13 +41,13 @@ function GA(TSP_points){
 
 			var p1 = parseInt(Math.random() * pointsNumber);
 			var p2 = parseInt(Math.random() * pointsNumber);	
-				while(p1 == p2){
-					p2 = parseInt(Math.random() * pointsNumber);	
-				}
-				p[p1] = population[i][p2];
-				p[p2] = population[i][p1];
-				population.push(p);
 
+			while(p1 == p2){
+				p2 = parseInt(Math.random() * pointsNumber);	
+			}
+			var s = p[p1];
+			p[p1] = p[p2];
+			p[p2] = s;
 			population.push(p);
 		}
 	}
